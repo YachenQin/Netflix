@@ -1,0 +1,17 @@
+import sys
+import codecs
+
+#read testfile
+myfile="file:/home/training/FINAL/test/*"
+
+data=sc.wholeTextFiles(myfile)
+
+wantdata=data.map(lambda line:line[1])
+wantdata1=wantdata.map(lambda x: x.split(":"))
+wantdata2=wantdata1.flatMapValues(lambda line: line.split("\n"))
+wantdata3=wantdata2.filter(lambda (x,y):y!="")
+
+wantdata4=wantdata3.mapValues(lambda y:y.split(",")).mapValues(lambda x:(x[0],x[1]))
+
+wantdata4.saveAsTextFile("file:/home/training/FINAL/datapreprocessout/")
+
